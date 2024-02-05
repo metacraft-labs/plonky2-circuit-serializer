@@ -73,7 +73,7 @@ pub fn read_bytes_from_json(json_path: &str) -> Vec<u8> {
     deserialized_data.bytes
 }
 
-pub fn load_circuit_dat_from_dir<
+pub fn load_circuit_data_from_dir<
     F: RichField + Extendable<D>,
     C: GenericConfig<D, F = F> + 'static,
     const D: usize,
