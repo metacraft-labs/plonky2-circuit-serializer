@@ -42,7 +42,7 @@ pub fn dump_circuit_data<
     let cd_bytes = data.common.clone().to_bytes(&CustomGateSerializer).unwrap();
     dump_bytes_to_json(
         cd_bytes,
-        format!("{storage_dir}/circuit_data/common_data.json").as_str(),
+        format!("{storage_dir}/common_data.json").as_str(),
     );
     let prover_only_bytes = data
         .prover_only
@@ -55,12 +55,12 @@ pub fn dump_circuit_data<
         .unwrap();
     dump_bytes_to_json(
         prover_only_bytes,
-        format!("{storage_dir}/circuit_data/prover_only.json").as_str(),
+        format!("{storage_dir}/prover_only.json").as_str(),
     );
     let verifier_only_bytes = data.verifier_only.to_bytes().unwrap();
     dump_bytes_to_json(
         verifier_only_bytes,
-        format!("{storage_dir}/circuit_data/verifier_only.json").as_str(),
+        format!("{storage_dir}/verifier_only.json").as_str(),
     );
 }
 
@@ -77,7 +77,7 @@ pub fn dump_outer_circuit_data<
     let cd_bytes = data.common.clone().to_bytes(&CustomGateSerializer).unwrap();
     dump_bytes_to_json(
         cd_bytes,
-        format!("{storage_dir}/circuit_data/common_data.json").as_str(),
+        format!("{storage_dir}/common_data.json").as_str(),
     );
     let prover_only_bytes = data
         .prover_only
@@ -90,12 +90,12 @@ pub fn dump_outer_circuit_data<
         .unwrap();
     dump_bytes_to_json(
         prover_only_bytes,
-        format!("{storage_dir}/circuit_data/prover_only.json").as_str(),
+        format!("{storage_dir}/prover_only.json").as_str(),
     );
     let verifier_only_bytes = data.verifier_only.to_bytes().unwrap();
     dump_bytes_to_json(
         verifier_only_bytes,
-        format!("{storage_dir}/circuit_data/verifier_only.json").as_str(),
+        format!("{storage_dir}/verifier_only.json").as_str(),
     );
 }
 
@@ -123,7 +123,7 @@ where
     println!("Reconstructing common data");
     let t_cd = Instant::now();
     let cd_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/common_data.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/common_data.json").as_str());
     let common_data =
         CommonCircuitData::<F, D>::from_bytes(cd_bytes, &CustomGateSerializer).unwrap();
     println!("Common data reconstructed in {:?}", t_cd.elapsed());
@@ -131,7 +131,7 @@ where
     println!("Reconstructing prover only data");
     let t_po = Instant::now();
     let prover_only_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/prover_only.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/prover_only.json").as_str());
     let prover_only = ProverOnlyCircuitData::<F, C, D>::from_bytes(
         prover_only_bytes.as_slice(),
         &CustomGeneratorSerializer::<C, D> {
@@ -145,7 +145,7 @@ where
     println!("Reconstructing verifier only data");
     let t_vo = Instant::now();
     let verifier_only_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/verifier_only.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/verifier_only.json").as_str());
     let verifier_only = VerifierOnlyCircuitData::<C, D>::from_bytes(verifier_only_bytes).unwrap();
     println!("Verifier only data reconstructed in {:?}", t_vo.elapsed());
 
@@ -169,7 +169,7 @@ where
     println!("Reconstructing common data");
     let t_cd = Instant::now();
     let cd_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/common_data.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/common_data.json").as_str());
     let common_data =
         CommonCircuitData::<F, D>::from_bytes(cd_bytes, &CustomGateSerializer).unwrap();
     println!("Common data reconstructed in {:?}", t_cd.elapsed());
@@ -177,7 +177,7 @@ where
     println!("Reconstructing prover only data");
     let t_po = Instant::now();
     let prover_only_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/prover_only.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/prover_only.json").as_str());
     let prover_only = ProverOnlyCircuitData::<F, C, D>::from_bytes(
         prover_only_bytes.as_slice(),
         &CustomGeneratorSerializerOuter::<C, D> {
@@ -191,7 +191,7 @@ where
     println!("Reconstructing verifier only data");
     let t_vo = Instant::now();
     let verifier_only_bytes =
-        read_bytes_from_json(format!("{storage_dir}/circuit_data/verifier_only.json").as_str());
+        read_bytes_from_json(format!("{storage_dir}/verifier_only.json").as_str());
     let verifier_only = VerifierOnlyCircuitData::<C, D>::from_bytes(verifier_only_bytes).unwrap();
     println!("Verifier only data reconstructed in {:?}", t_vo.elapsed());
 
