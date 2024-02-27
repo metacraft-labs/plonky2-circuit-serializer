@@ -10,7 +10,7 @@ use plonky2::{
     }
 };
 use serde::{Deserialize, Serialize};
-
+use plonky2::field::types::Field;
 use crate::serializer::{CustomGateSerializer, CustomGeneratorSerializer, CustomGeneratorSerializerOuter};
 
 #[derive(Serialize, Deserialize)]
@@ -228,5 +228,44 @@ where
         prover_only,
         verifier_only,
         common: common_data,
+    }
+}
+
+#[cfg(test)]
+
+mod tests {
+    use plonky2::{iop::witness::{PartialWitness, WitnessWrite}, plonk::{circuit_builder::CircuitBuilder, circuit_data::CircuitConfig, config::PoseidonGoldilocksConfig}};
+    use plonky2::plonk::prover::prove;
+    use super::*;
+    const D: usize = 2;
+    type C = PoseidonGoldilocksConfig;
+    type F = <C as GenericConfig<D>>::F;
+
+    
+
+    #[test]
+    fn circut_dump_and_read_test() {
+
+        let config = CircuitConfig::standard_recursion_config();
+        let mut builder = CircuitBuilder::<F, D>::new(config);
+    
+        // The arithmetic circuit x² - 4x + 7
+        let x = builder.add_virtual_target();
+        let a = builder.mul(x, x);
+        let b = builder.mul_const(F::from_canonical_u32(4), x);
+        let c = builder.mul_const(F::NEG_ONE, b);
+        let d = builder.add(a, c);
+        let e = builder.add_const(d, F::from_canonical_u32(7));
+    
+        // Public inputs are the initial value (provided below) and the result (which is generated).
+        builder.register_public_input(x);
+        builder.register_public_input(e);
+        let mut pw = PartialWitness::new();
+        pw.set_target(x, F::from_canonical_u32(1));
+        let data = builder.build::<C>();
+        dump_circuit_data::<F, C, D>(&data, "./test");
+        let data1 = load_circuit_data_from_dir::<F,C,D>("./test");
+        let proof_with_pis = prove::<F, C, D>(&data1.prover_only, &data1.common, pw, &mut Default::default()).unwrap();
+        data1.verify(proof_with_pis.clone()).expect("verify error");
     }
 }
