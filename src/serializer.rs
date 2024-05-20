@@ -16,7 +16,7 @@ use plonky2::gates::random_access::RandomAccessGate;
 use plonky2::gates::reducing::ReducingGate;
 use plonky2::gates::reducing_extension::ReducingExtensionGate;
 use plonky2::hash::hash_types::RichField;
-use plonky2::plonk::config::{AlgebraicHasher, Hasher, GenericConfig};
+use plonky2::plonk::config::{AlgebraicHasher, GenericConfig, Hasher};
 use plonky2::util::serialization::{GateSerializer, WitnessGeneratorSerializer};
 use plonky2::{
     get_gate_tag_impl, get_generator_tag_impl, impl_gate_serializer, impl_generator_serializer,
@@ -34,6 +34,9 @@ use plonky2_crypto::u32::gates::uninterleave_to_b32::{
 use plonky2_crypto::u32::gates::uninterleave_to_u32::{
     UninterleaveToU32Gate, UninterleaveToU32Generator,
 };
+use starky_bls12_381::fp2_plonky2::Fp2InverseGenerator;
+use starky_bls12_381::g2_plonky2::{G2AdditionGenerator, G2DoublingGenerator};
+use starky_bls12_381::hash_to_curve::SqrtGenerator;
 use std::marker::PhantomData;
 // generators
 use plonky2::gadgets::arithmetic::EqualityGenerator;
@@ -152,7 +155,11 @@ where
         U32AddManyGenerator<F, D>,
         ComparisonGenerator<F, D>,
         U32RangeCheckGenerator<F, D>,
-        UninterleaveToB32Generator
+        UninterleaveToB32Generator,
+        Fp2InverseGenerator,
+        SqrtGenerator,
+        G2AdditionGenerator,
+        G2DoublingGenerator
     }
 }
 
@@ -209,6 +216,10 @@ where
         U32AddManyGenerator<F, D>,
         ComparisonGenerator<F, D>,
         U32RangeCheckGenerator<F, D>,
-        UninterleaveToB32Generator
+        UninterleaveToB32Generator,
+        Fp2InverseGenerator,
+        SqrtGenerator,
+        G2AdditionGenerator,
+        G2DoublingGenerator
     }
 }
