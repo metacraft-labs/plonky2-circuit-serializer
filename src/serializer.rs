@@ -62,13 +62,6 @@ use plonky2::iop::generator::{
 };
 use plonky2::recursion::dummy_circuit::DummyProofGenerator;
 use plonky2_crypto::biguint::BigUintDivRemGenerator;
-use plonky2_ed25519::curve::curve_types::Curve;
-use plonky2_ed25519::curve::ed25519::Ed25519;
-use plonky2_ed25519::gadgets::curve::CurvePointDecompressionGenerator;
-use plonky2_ed25519::gadgets::nonnative::{
-    NonNativeAdditionGenerator, NonNativeInverseGenerator, NonNativeMultiplicationGenerator,
-    NonNativeSubtractionGenerator,
-};
 
 pub struct CustomGateSerializer;
 impl<F: RichField + Extendable<D>, const D: usize> GateSerializer<F, D> for CustomGateSerializer {
@@ -139,15 +132,6 @@ where
         SplitGenerator,
         WireSplitGenerator,
         BigUintDivRemGenerator<F, D>,
-        CurvePointDecompressionGenerator<F, D, Ed25519>,
-        NonNativeSubtractionGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeSubtractionGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeMultiplicationGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeMultiplicationGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeAdditionGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeAdditionGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeInverseGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeInverseGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
         U32ArithmeticGenerator<F, D>,
         U32SubtractionGenerator<F, D>,
         U32InterleaveGenerator,
@@ -200,15 +184,6 @@ where
         SplitGenerator,
         WireSplitGenerator,
         BigUintDivRemGenerator<F, D>,
-        CurvePointDecompressionGenerator<F, D, Ed25519>,
-        NonNativeSubtractionGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeSubtractionGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeMultiplicationGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeMultiplicationGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeAdditionGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeAdditionGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
-        NonNativeInverseGenerator<F,D,<Ed25519 as Curve>::BaseField>,
-        NonNativeInverseGenerator<F,D,<Ed25519 as Curve>::ScalarField>,
         U32ArithmeticGenerator<F, D>,
         U32SubtractionGenerator<F, D>,
         U32InterleaveGenerator,
