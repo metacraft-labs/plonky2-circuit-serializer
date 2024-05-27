@@ -7,7 +7,7 @@ edition = "2021"
 [dependencies]
 plonky2 = { git = "https://github.com/metacraft-labs/plonky2" }
 plonky2_crypto = { git = "https://github.com/metacraft-labs/plonky2-crypto" }
-plonky2_ed25519 = { git = "https://github.com/metacraft-labs/plonky2_ed25519" }
+# plonky2_ed25519 = { path = "/home/dimo/code/repos/metacraft-labs/plonky2_ed25519" }
 log = { version = "0.4.14", default-features = false }
 serde_json = "1.0.74"
 serde = { version = "1.0", features = ["derive"] }
